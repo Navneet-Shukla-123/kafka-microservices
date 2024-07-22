@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"kafka-microservices/models"
+	"kafka-microservices/notification-service"
 	"kafka-microservices/payment-service"
 	"kafka-microservices/producer"
 	"log"
@@ -74,8 +75,7 @@ func (consumer *Consumer) ConsumeClaim(
 				continue
 			}
 
-			log.Println("UserID  is ", notiData.ID)
-			log.Println("Payment Status is ", notiData.Payment)
+			notification.ShowNotification(notiData)
 
 			if !notiData.Payment {
 				var paymentData models.Payment
@@ -109,7 +109,7 @@ func (consumer *Consumer) ConsumeClaim(
 				continue
 			}
 
-			paymentStatus:=payment.DoPayment(paymentData)
+			paymentStatus := payment.DoPayment(paymentData)
 
 			var notiData models.Notification
 
