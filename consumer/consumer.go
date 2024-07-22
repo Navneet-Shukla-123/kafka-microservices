@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"kafka-microservices/models"
+	"kafka-microservices/payment-service"
 	"kafka-microservices/producer"
 	"log"
 
@@ -108,10 +109,12 @@ func (consumer *Consumer) ConsumeClaim(
 				continue
 			}
 
+			paymentStatus:=payment.DoPayment(paymentData)
+
 			var notiData models.Notification
 
 			notiData.ID = paymentData.ID
-			notiData.Payment = true
+			notiData.Payment = paymentStatus
 			produ, err := producer.NewProducer().SetupProducer()
 			if err != nil {
 				log.Println("error in setting up the producer ", err)
