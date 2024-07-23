@@ -77,6 +77,10 @@ func (consumer *Consumer) ConsumeClaim(
 
 			notification.ShowNotification(notiData)
 
+			if notiData.Payment {
+				return nil
+			}
+
 			if !notiData.Payment {
 				var paymentData models.Payment
 
@@ -115,7 +119,7 @@ func (consumer *Consumer) ConsumeClaim(
 
 			notiData.ID = paymentData.ID
 			notiData.Payment = paymentStatus
-			log.Println("****** Payment status is ******",paymentStatus)
+			log.Println("****** Payment status is ******", paymentStatus)
 			produ, err := producer.NewProducer().SetupProducer()
 			if err != nil {
 				log.Println("error in setting up the producer ", err)
