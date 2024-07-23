@@ -115,6 +115,7 @@ func (consumer *Consumer) ConsumeClaim(
 
 			notiData.ID = paymentData.ID
 			notiData.Payment = paymentStatus
+			log.Println("****** Payment status is ******",paymentStatus)
 			produ, err := producer.NewProducer().SetupProducer()
 			if err != nil {
 				log.Println("error in setting up the producer ", err)

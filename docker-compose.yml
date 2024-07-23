@@ -19,19 +19,9 @@ services:
       KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_CFG_INTER_BROKER_LISTENER_NAME: PLAINTEXT
 
-  postgres:
-    image: postgres:latest
-    ports:
-      - "5433:5433"
-    volumes:
-      - "postgres_data:/var/lib/postgresql/data"
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydb
+
 
 volumes:
   kafka_data:
     driver: local
-  postgres_data:
-    driver: local
+

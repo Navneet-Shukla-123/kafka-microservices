@@ -1,9 +1,7 @@
 package main
 
 import (
-	"kafka-microservices/db"
 	"kafka-microservices/producer"
-	"log"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,13 +17,7 @@ func NewHandler(producer producer.Producer) *Handler {
 }
 
 func main() {
-	_, err := db.ConnectToDB()
-	if err != nil {
-		log.Println("error in connecting to database ", err)
 
-	}
-
-	log.Println("Connected to DB")
 	producer := producer.NewProducer()
 	handler := NewHandler(*producer)
 	router := gin.Default()
